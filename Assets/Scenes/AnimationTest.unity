@@ -305,61 +305,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 984451662098850641, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 984451662098850641, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 984451662098850641, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 984451662098850643, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: mMoveSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 984451662098850643, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: mJumpHeight
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 984451662098850668, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 984451662098850668, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 984451662098850671, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: m_Mass
-      value: 5.141593
-      objectReference: {fileID: 0}
-    - target: {fileID: 984451662098850671, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 984451662098850671, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: m_UseAutoMass
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 984451662098850671, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 984451663155715345, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 984451663155715347, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: m_SortingLayer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 984451663155715347, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 2104020811
+      propertyPath: m_Name
+      value: indraAvatar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88be8ca603bad6843b132d5551bafc36, type: 3}
