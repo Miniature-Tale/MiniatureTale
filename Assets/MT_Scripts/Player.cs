@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private Action<InputAction.CallbackContext> mMoveAction;
     private Action<InputAction.CallbackContext> mCancelMoveAction;
     private Action<InputAction.CallbackContext> mJumpAction;
+    private Action<InputAction.CallbackContext> mAttackAction;
     private float mMoveInputVector;
     private Vector2 mMoveVector;
     private Rigidbody2D mMyRb;
@@ -36,11 +37,16 @@ public class Player : MonoBehaviour
         {
             Jump();
         };
+        mAttackAction = (context) =>
+        {
+            Attack();
+        };
         mPlayerInput.GamePlay.Run.performed += mMoveAction;
         mPlayerInput.GamePlay.Run.canceled += mCancelMoveAction;
         mPlayerInput.GamePlay.Jump.performed += mJumpAction;
         mPlayerInput.GamePlay.Enable();
     }
+
 
     private void OnDisable()
     {
@@ -52,7 +58,6 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // mMyRb.velocity.x < mMoveSpeed || mMyRb.velocity.x  > -mMoveSpeed
         _handleHorizontalMovement();
     }
 
@@ -87,6 +92,21 @@ public class Player : MonoBehaviour
     {
         _cancelVerticalVelocity();
         mMyRb.AddForce(transform.up * mJumpHeight * mMyRb.mass, ForceMode2D.Impulse);
+    }
+    
+    private void Attack()
+    {
+       /*check if we are at the start of the combo
+        if we haven't then it is the beginning of said combo
+        if it's the beginning we want to play an attack animation.
+        while the anim plays we wait to hit animation events that will call some logic to do a few things
+        -first event will call to enable a damage component found on a weapon. 
+        -It will also call a timer that will detect whether or not the player pressed the attack button again.
+            -If they did we transition into the next attack
+            -If they didn't then we wait to hit the cancel anim event on an attack to reset all parameters
+            -We also make sure the player can't start another attack if the have missed the timing window
+        -The last attack will automatically cancel and reset all parameters.  
+        */
     }
 
 }

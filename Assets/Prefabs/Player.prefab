@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 984451663155715347}
   - component: {fileID: 984451663155715346}
   m_Layer: 0
-  m_Name: 0100000
+  m_Name: indraAvatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
