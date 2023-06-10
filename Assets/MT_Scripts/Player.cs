@@ -16,11 +16,17 @@ public class Player : MonoBehaviour
     private float mMoveInputVector;
     private Vector2 mMoveVector;
     private Rigidbody2D mMyRb;
+    private Animator mAnimator;
+    private SpriteRenderer mPlayerSprite;
+    private float mPlayerAnimSpeed;
+    private bool flipPlayer;
 
     private void Awake()
     {
         mPlayerInput = new MT_InputAsset();
         mMyRb = GetComponent<Rigidbody2D>();
+        mAnimator = GetComponentInChildren<Animator>();
+        mPlayerSprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -28,6 +34,7 @@ public class Player : MonoBehaviour
         mMoveAction = (context) =>
         {
             mMoveInputVector = context.ReadValue<float>();
+            flipPlayer = mMoveInputVector < 0.0f ? true : false;
         };
         mCancelMoveAction = (context) =>
         {
@@ -44,6 +51,7 @@ public class Player : MonoBehaviour
         mPlayerInput.GamePlay.Run.performed += mMoveAction;
         mPlayerInput.GamePlay.Run.canceled += mCancelMoveAction;
         mPlayerInput.GamePlay.Jump.performed += mJumpAction;
+        mPlayerInput.GamePlay.StandardAttack.performed += mAttackAction;
         mPlayerInput.GamePlay.Enable();
     }
 
@@ -53,7 +61,14 @@ public class Player : MonoBehaviour
         mPlayerInput.GamePlay.Run.performed -= mMoveAction;
         mPlayerInput.GamePlay.Run.canceled -= mCancelMoveAction;
         mPlayerInput.GamePlay.Jump.performed -= mJumpAction;
+        mPlayerInput.GamePlay.StandardAttack.performed -= mAttackAction;
         mPlayerInput.GamePlay.Disable();
+    }
+
+    private void Update()
+    {
+        mAnimator.SetBool("IsMoving", mMyRb.velocity.x != 0.0f);
+        mPlayerSprite.flipX = flipPlayer;
     }
 
     private void FixedUpdate()
@@ -107,6 +122,7 @@ public class Player : MonoBehaviour
             -We also make sure the player can't start another attack if the have missed the timing window
         -The last attack will automatically cancel and reset all parameters.  
         */
+        print("Attack Detected");
     }
 
 }
