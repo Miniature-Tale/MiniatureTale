@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
     private float mMoveSpeed = 6.0f;
     [SerializeField]
     private float mJumpHeight = 2.0f;
+    [SerializeField]
+    private float mLastComboEndDelay = 0.5f;
+    [SerializeField]
+    private float mLastHitDelay = 0.2f;
     private MT_InputAsset mPlayerInput;
     private Action<InputAction.CallbackContext> mMoveAction;
     private Action<InputAction.CallbackContext> mCancelMoveAction;
@@ -20,6 +24,11 @@ public class Player : MonoBehaviour
     private SpriteRenderer mPlayerSprite;
     private float mPlayerAnimSpeed;
     private bool flipPlayer;
+    private int mComboLength = 3;
+    private int mComboCounter = 0;
+    private float mLastComboEndTime;
+    private float mLastHitTime;
+    private bool mCanInvokeEndCombo;
 
     private void Awake()
     {
@@ -69,6 +78,7 @@ public class Player : MonoBehaviour
     {
         mAnimator.SetBool("IsMoving", mMyRb.velocity.x != 0.0f);
         mPlayerSprite.flipX = flipPlayer;
+        TryToExitAttack();
     }
 
     private void FixedUpdate()
@@ -108,21 +118,36 @@ public class Player : MonoBehaviour
         _cancelVerticalVelocity();
         mMyRb.AddForce(transform.up * mJumpHeight * mMyRb.mass, ForceMode2D.Impulse);
     }
-    
+
     private void Attack()
     {
-       /*check if we are at the start of the combo
-        if we haven't then it is the beginning of said combo
-        if it's the beginning we want to play an attack animation.
-        while the anim plays we wait to hit animation events that will call some logic to do a few things
-        -first event will call to enable a damage component found on a weapon. 
-        -It will also call a timer that will detect whether or not the player pressed the attack button again.
-            -If they did we transition into the next attack
-            -If they didn't then we wait to hit the cancel anim event on an attack to reset all parameters
-            -We also make sure the player can't start another attack if the have missed the timing window
-        -The last attack will automatically cancel and reset all parameters.  
-        */
-        print("Attack Detected");
+        //check if can combo
+        if (Time.time - mLastComboEndTime > mLastComboEndDelay && mComboCounter < mComboLength)
+        {
+            if (Time.time - mLastHitTime >= mLastHitDelay)
+            {
+                mAnimator.SetTrigger("Attack"+mComboCounter);
+                //other Attack properties are set here
+                mComboCounter++;
+                mLastHitTime = Time.time;
+                mCanInvokeEndCombo = true;
+            }
+        }
+    }
+
+    private void TryToExitAttack()
+    {
+        if (mAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && mAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && mCanInvokeEndCombo)
+        {
+            EndCombo();
+            mCanInvokeEndCombo = false;
+        }
+    }
+
+    private void EndCombo()
+    {
+        mComboCounter = 0;
+        mLastComboEndTime = Time.time;
     }
 
 }

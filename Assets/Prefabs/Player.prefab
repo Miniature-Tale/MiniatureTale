@@ -86,6 +86,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mMoveSpeed: 6
   mJumpHeight: 8
+  mLastComboEndDelay: 0.45
+  mLastHitDelay: 0.35
 --- !u!1 &984451663155715345
 GameObject:
   m_ObjectHideFlags: 0
